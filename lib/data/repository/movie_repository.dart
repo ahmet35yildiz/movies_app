@@ -10,8 +10,12 @@ class MoviesRepository {
   }
 
   Future<List<MovieModel>> loadMovies() async {
-    var url = "https://www.omdbapi.com/?s=red&apikey=ae67ea1a";
-    var response = await Dio().get(url);
+    var dio = Dio();
+    var response = await dio.get(
+      "https://www.omdbapi.com/",
+      queryParameters: {"s": "red", "apikey": "ae67ea1a"},
+    );
     return parseMovies(response.data);
   }
+
 }
