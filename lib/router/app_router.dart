@@ -14,7 +14,7 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(
           page: DetailRoute.page,
-          path: "/detailPageRoute",
+          path: "/detailPageRoute/:imdbId",
         )
       ];
 }

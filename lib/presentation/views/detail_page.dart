@@ -1,26 +1,29 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/colors.dart';
 
-import '../widget/detail_widget.dart';
 
 @RoutePage()
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  final String? imdbId;
+
+  const DetailPage({super.key, this.imdbId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backgroundColor,
-        title: const Text('Detail Page'),
-      ),
       body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(child: DetailWidget())
-          ]
-        )
+            Image.network("https://m.media-amazon.com/images/M/MV5BNzlkNzVjMDMtOTdhZC00MGE1LTkxODctMzFmMjkwZmMxZjFhXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg"),
+            Text("The Fast and the Furious"),
+            Text("Year: 2001"),
+            Text("Runtime: 106 min"),
+            Text("Genre: Action, Crime, Thriller"),
+            Text("Director: Rob Cohen"),
+            Text("IMDB ID: $imdbId"),
+          ],
+        ),
       ),
     );
   }

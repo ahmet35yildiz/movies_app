@@ -5,10 +5,13 @@ sealed class MoviesEvent extends Equatable{
   const MoviesEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class GetMoviesEvent extends MoviesEvent {
+final class GetSearchedMoviesEvent extends MoviesEvent {
+  final String? searchTerm;
+  const GetSearchedMoviesEvent({this.searchTerm});
+
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [searchTerm];
 }

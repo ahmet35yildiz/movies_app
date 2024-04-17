@@ -10,37 +10,46 @@ import '../bloc/movies_bloc.dart';
 class MainPage extends StatelessWidget {
   MainPage({super.key});
 
-  bool searching = true;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoviesBloc()..add(GetMoviesEvent()),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: backgroundColor,
-          title: TextField(
-            decoration: const InputDecoration(
+      create: (context) => MoviesBloc()..add(const GetSearchedMoviesEvent()),
+      child: _Body(),
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: backgroundColor,
+        title: TextField(
+          decoration: const InputDecoration(
               hintText: "Search Movies",
               hintStyle: TextStyle(color: Colors.black54)
-            ),
-            onChanged: (searchTerm){
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("Searching for $searchTerm"),
-                  duration: const Duration(seconds: 1),
-                ),
-              );
-            },
           ),
+          onChanged: (searchTerm){
+            context.read<MoviesBloc>().add(GetSearchedMoviesEvent(searchTerm: searchTerm));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Searching for $searchTerm"),
+                duration: const Duration(seconds: 1),
+              ),
+            );
+          },
         ),
-        body: Column(
+      ),
+      body: const Column(
           children:[
             Expanded(
                 child: MovieCardWidget())
           ]
-        ),
       ),
     );
   }
 }
+

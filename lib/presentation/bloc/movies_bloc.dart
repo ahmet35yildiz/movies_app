@@ -12,22 +12,24 @@ part 'movies_state.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   MoviesBloc() : super(MoviesInitial()) {
-    on<GetMoviesEvent>(_GetMoviesEvent);
+    on<GetSearchedMoviesEvent>(_GetSearchedMoviesEvent);
   }
   final _moviesRepository = MoviesRepository();
 
-
-  FutureOr<void> _GetMoviesEvent(
-      GetMoviesEvent, Emitter<MoviesState> emit
+  FutureOr<void> _GetSearchedMoviesEvent(
+      GetSearchedMoviesEvent event,
+      Emitter<MoviesState> emit
       ) async {
     try {
       emit (MoviesLoading());
 
-      final response = await _moviesRepository.loadMovies();
+      final response = await _moviesRepository.loadSearchedMovies(searchTerm : event.searchTerm);
       emit(MoviesSuccess(response));
-    } catch (e) {
+
+    }catch(e,stackTrace){
       emit(MoviesError());
-      print(e.toString());
+      print("hata: $e");
+      print("hata stackTrace: $stackTrace");
     }
   }
 }

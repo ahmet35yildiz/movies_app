@@ -9,11 +9,11 @@ class MoviesRepository {
     return MoviesResponseModel.fromJson(response).moviesResponse;
   }
 
-  Future<List<MovieModel>> loadMovies() async {
+  Future<List<MovieModel>> loadSearchedMovies({String? searchTerm}) async {
     var dio = Dio();
     var response = await dio.get(
       "https://www.omdbapi.com/",
-      queryParameters: {"s": "red", "apikey": "ae67ea1a"},
+      queryParameters: {"s": searchTerm??"", "apikey": "ae67ea1a"},
     );
     return parseMovies(response.data);
   }
