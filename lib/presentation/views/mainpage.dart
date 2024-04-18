@@ -34,12 +34,6 @@ class _Body extends StatelessWidget {
           ),
           onChanged: (searchTerm){
             context.read<MoviesBloc>().add(GetSearchedMoviesEvent(searchTerm: searchTerm));
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Searching for $searchTerm"),
-                duration: const Duration(seconds: 1),
-              ),
-            );
           },
         ),
       ),
