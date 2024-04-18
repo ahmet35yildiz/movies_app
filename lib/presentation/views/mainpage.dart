@@ -43,7 +43,7 @@ class _Body extends StatelessWidget {
               colors: [
                 backgroundColor,
                 Colors.white70
-              ], // Değişiklik: Arka plan gradient
+              ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),

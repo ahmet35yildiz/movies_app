@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:movies_app/colors.dart';
 import 'package:movies_app/presentation/bloc/movies_bloc.dart';
 import 'package:movies_app/router/app_router.gr.dart';
@@ -14,9 +15,22 @@ class MovieCardWidget extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
     return BlocBuilder<MoviesBloc, MoviesState>(
       builder: (context, state) => switch (state) {
-        MoviesLoading() =>
-          const Center(child: CircularProgressIndicator()),
-        MoviesError() => const Center(child: Text("Error")),
+        MoviesLoading() => const Center(child: CircularProgressIndicator()),
+        MoviesError() => Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Please check your search term!",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                Lottie.asset("assets/animations/search_animation.json"),
+              ],
+            ),
+          ),
         MoviesSuccess() => ListView.builder(
             itemCount: state.movies.length,
             itemBuilder: (context, index) {
@@ -27,7 +41,8 @@ class MovieCardWidget extends StatelessWidget {
                   width: screenWidth,
                   height: screenHeight / 3,
                   child: GestureDetector(
-                    onTap: () => context.router.push(DetailRoute(imdbId: movie.imdbId)),
+                    onTap: () =>
+                        context.router.push(DetailRoute(imdbId: movie.imdbId)),
                     child: Card(
                       elevation: 5,
                       shadowColor: secondColor,
@@ -39,13 +54,36 @@ class MovieCardWidget extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               SizedBox(
-                                  height: screenHeight / 3.5,
-                                  child: Image.network(movie.poster),),
-                              SizedBox(width: screenWidth / 2.5,
+                                height: screenHeight / 3.5,
+                                width: screenWidth / 2.5,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.3),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: const Offset(0, 3),
+                                      ),
+                                    ],
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: FadeInImage.assetNetwork(
+                                      placeholder: "assets/images/loading.gif",
+                                      image: state.movies[index].poster,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: screenWidth / 2.5,
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,

@@ -9,7 +9,6 @@ class DetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
     return BlocBuilder<DetailBloc, DetailState>(
       builder: (context, state) => switch (state) {
@@ -25,7 +24,7 @@ class DetailWidget extends StatelessWidget {
                   colors: [
                     backgroundColor,
                     Colors.white70
-                  ], // Değişiklik: Arka plan gradient
+                  ], //
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -50,12 +49,13 @@ class DetailWidget extends StatelessWidget {
                                   ),
                                 ],
                                 borderRadius:
-                                    BorderRadius.circular(10), // Kenar yarıçapı
+                                    BorderRadius.circular(10),
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  state.movieDetail.poster,
+                                child: FadeInImage.assetNetwork(
+                                  placeholder: "assets/images/loading.gif",
+                                  image: state.movieDetail.poster,
                                   fit: BoxFit.cover,
                                 ),
                               ),
