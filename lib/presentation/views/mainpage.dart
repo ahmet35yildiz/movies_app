@@ -37,12 +37,18 @@ class _Body extends StatelessWidget {
           },
         ),
       ),
-      body: const Column(
-          children:[
-            Expanded(
-                child: MovieCardWidget())
-          ]
-      ),
+      body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                backgroundColor,
+                Colors.white70
+              ], // Değişiklik: Arka plan gradient
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: MovieCardWidget()),
     );
   }
 }

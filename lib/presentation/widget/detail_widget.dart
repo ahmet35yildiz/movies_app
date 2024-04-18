@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/presentation/bloc/detail_bloc.dart';
-import 'package:movies_app/presentation/bloc/movies_bloc.dart';
+
+import '../../colors.dart';
 
 class DetailWidget extends StatelessWidget {
   const DetailWidget({super.key});
@@ -14,30 +15,245 @@ class DetailWidget extends StatelessWidget {
       builder: (context, state) => switch (state) {
         DetailLoading() => const Center(child: CircularProgressIndicator()),
         DetailError() => const Center(child: Text("Error")),
-        DetailSuccess() => SingleChildScrollView(
-          child: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(height: screenHeight / 2,
-                    child: Image.network(state.movieDetail.poster)),
-                Text("Title: ${state.movieDetail.title}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Year: ${state.movieDetail.year}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Released: ${state.movieDetail.released}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Runtime: ${state.movieDetail.runtime}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Genre: ${state.movieDetail.genre}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Director: ${state.movieDetail.director}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Plot: ${state.movieDetail.plot}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Language: ${state.movieDetail.language}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("Country: ${state.movieDetail.country}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-                Text("IMDB Rating: ${state.movieDetail.imdbRating}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold)),
-
-              ]
+        DetailSuccess() => Scaffold(
+            appBar: AppBar(
+                title: Text(state.movieDetail.title),
+                backgroundColor: backgroundColor),
+            body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    backgroundColor,
+                    Colors.white70
+                  ], // Değişiklik: Arka plan gradient
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            height: screenHeight / 2,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                                borderRadius:
+                                    BorderRadius.circular(10), // Kenar yarıçapı
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  state.movieDetail.poster,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: screenHeight / 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Movie Name: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.title,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Year: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.year,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Released: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.released,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Runtime: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.runtime,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Genre: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.genre,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Director: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.director,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              const Text(
+                                "Plot: ",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  state.movieDetail.plot,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Language: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.language,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Country: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.country,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "IMDB Rating: ",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                state.movieDetail.imdbRating,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
         _ => const Center(child: Text("Error")),
-
-
       },
     );
   }
