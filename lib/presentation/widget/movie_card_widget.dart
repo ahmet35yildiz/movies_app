@@ -31,7 +31,7 @@ class MovieCardWidget extends StatelessWidget {
             ),
           ),
         MoviesSuccess() => ListView.builder(
-            itemCount: 9,
+            itemCount: state.movies.length,
             itemBuilder: (context, index) {
               final movie = state.movies[index];
               return Padding(
