@@ -8,19 +8,19 @@ import '../bloc/movies_bloc.dart';
 
 @RoutePage(name: "MainPageRoute")
 class MainPage extends StatelessWidget {
-  MainPage({super.key});
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => MoviesBloc()..add(const GetSearchedMoviesEvent()),
-      child: _Body(),
+      child: const _Body(),
     );
   }
 }
 
 class _Body extends StatelessWidget {
-  const _Body({super.key});
+  const _Body();
 
   @override
   Widget build(BuildContext context) {
@@ -30,26 +30,23 @@ class _Body extends StatelessWidget {
         title: TextField(
           decoration: const InputDecoration(
               hintText: "Search Movies",
-              hintStyle: TextStyle(color: Colors.black54)
-          ),
-          onChanged: (searchTerm){
-            context.read<MoviesBloc>().add(GetSearchedMoviesEvent(searchTerm: searchTerm));
+              hintStyle: TextStyle(color: Colors.black54)),
+          onChanged: (searchTerm) {
+            context
+                .read<MoviesBloc>()
+                .add(GetSearchedMoviesEvent(searchTerm: searchTerm));
           },
         ),
       ),
       body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                backgroundColor,
-                Colors.white70
-              ],
+              colors: [backgroundColor, Colors.white70],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
           ),
-          child: MovieCardWidget()),
+          child: const MovieCardWidget()),
     );
   }
 }
-

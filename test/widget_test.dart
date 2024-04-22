@@ -1,30 +1,190 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:movies_app/main.dart';
+import 'package:movies_app/presentation/widget/card_movie_title_widget.dart';
+import 'package:movies_app/presentation/widget/card_movie_type_widget.dart';
+import 'package:movies_app/presentation/widget/card_movie_year_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_country_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_director_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_genre_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_language_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_plot_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_rating_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_released_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_runtime_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_title_widget.dart';
+import 'package:movies_app/presentation/widget/detail_movie_year_widget.dart';
+import 'package:movies_app/presentation/widget/error_text_widget.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  group('MainPage Widget Test', () {
+    testWidgets('HomeScreen Widget Test', (WidgetTester tester) async {
+      await tester.pumpWidget(const MaterialApp(
+        home: Scaffold(
+          body: ErrorTextWidget(),
+        ),
+      ));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      final textFinder = find.text("Please check your search term!");
+      expect(textFinder, findsOneWidget);
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    testWidgets("Card Widgets", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: CardMovieTitleWidget(
+            movieTitle: 'Star Wars',
+          ),
+        ),
+      ));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      final textFinder = find.text("Star Wars");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("Card Widgets", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: CardMovieYearWidget(
+            movieYear: '1977',
+          ),
+        ),
+      ));
+
+      final textFinder = find.text("1977");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("Card Widgets", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: CardMovieTypeWidget(
+            movieType: 'movie',
+          ),
+        ),
+      ));
+
+      final textFinder = find.text("movie");
+      expect(textFinder, findsOneWidget);
+    });
+  });
+
+  group("DetailPage Widget Test", () {
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieTitleWidget(
+            movieTitle: 'Star Wars',
+          ),
+        ),
+      ));
+
+      final textFinder = find.text("Star Wars");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieYearWidget(
+            movieYear: '1977',
+          ),
+        ),
+      ));
+
+      final textFinder = find.text("1977");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieReleasedWidget(movieReleased: '25 May 1977'),
+        ),
+      ));
+
+      final textFinder = find.text("25 May 1977");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieRuntimeWidget(movieRuntime: '121 min'),
+        ),
+      ));
+
+      final textFinder = find.text("121 min");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body:
+              DetailMovieGenreWidget(movieGenre: 'Action, Adventure, Fantasy'),
+        ),
+      ));
+
+      final textFinder = find.text("Action, Adventure, Fantasy");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieDirectorWidget(movieDirector: 'George Lucas'),
+        ),
+      ));
+
+      final textFinder = find.text("George Lucas");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMoviePlotWidget(
+              moviePlot:
+                  'Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire\'s world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vader.'),
+        ),
+      ));
+
+      final textFinder = find.text(
+          "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vader.");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieLanguageWidget(movieLanguage: 'English'),
+        ),
+      ));
+
+      final textFinder = find.text("English");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieCountryWidget(movieCountry: 'United States'),
+        ),
+      ));
+
+      final textFinder = find.text("United States");
+      expect(textFinder, findsOneWidget);
+    });
+
+    testWidgets("DetailPage Widget Test", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: DetailMovieRatingWidget(movieRating: '8.6'),
+        ),
+      ));
+
+      final textFinder = find.text("8.6");
+      expect(textFinder, findsOneWidget);
+    });
   });
 }

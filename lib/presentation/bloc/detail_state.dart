@@ -1,7 +1,7 @@
 part of 'detail_bloc.dart';
 
 @immutable
-sealed class DetailState extends Equatable{
+class DetailState extends Equatable{
   const DetailState();
 
   @override

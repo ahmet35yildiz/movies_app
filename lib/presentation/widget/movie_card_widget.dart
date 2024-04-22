@@ -1,9 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 import 'package:movies_app/colors.dart';
 import 'package:movies_app/presentation/bloc/movies_bloc.dart';
+import 'package:movies_app/presentation/widget/card_movie_poster_widget.dart';
+import 'package:movies_app/presentation/widget/card_movie_title_widget.dart';
+import 'package:movies_app/presentation/widget/card_movie_type_widget.dart';
+import 'package:movies_app/presentation/widget/card_movie_year_widget.dart';
+import 'package:movies_app/presentation/widget/error_text_widget.dart';
+import 'package:movies_app/presentation/widget/lottie_animation_widget.dart';
 import 'package:movies_app/router/app_router.gr.dart';
 
 class MovieCardWidget extends StatelessWidget {
@@ -16,23 +21,17 @@ class MovieCardWidget extends StatelessWidget {
     return BlocBuilder<MoviesBloc, MoviesState>(
       builder: (context, state) => switch (state) {
         MoviesLoading() => const Center(child: CircularProgressIndicator()),
-        MoviesError() => Center(
+        MoviesError() => const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "Please check your search term!",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                Lottie.asset("assets/animations/search_animation.json"),
+                ErrorTextWidget(),
+                LottieAnimationWidget(),
               ],
             ),
           ),
         MoviesSuccess() => ListView.builder(
-            itemCount: state.movies.length,
+            itemCount: 9,
             itemBuilder: (context, index) {
               final movie = state.movies[index];
               return Padding(
@@ -59,28 +58,8 @@ class MovieCardWidget extends StatelessWidget {
                               SizedBox(
                                 height: screenHeight / 3.5,
                                 width: screenWidth / 2.5,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.3),
-                                        spreadRadius: 5,
-                                        blurRadius: 7,
-                                        offset: const Offset(0, 3),
-                                      ),
-                                    ],
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: FadeInImage.assetNetwork(
-                                      placeholder: "assets/images/loading.gif",
-                                      image: state.movies[index].poster,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
+                                child: CardMoviePosterWidget(
+                                    moviePoster: movie.poster),
                               ),
                               SizedBox(
                                 width: screenWidth / 2.5,
@@ -88,33 +67,10 @@ class MovieCardWidget extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text(
-                                      movie.title,
-                                      style: TextStyle(
-                                        color: secondColor,
-                                        fontSize: 25,
-                                      ),
-                                      softWrap: true,
-                                      textAlign: TextAlign.center,
-                                      maxLines: 5,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      movie.year,
-                                      style: TextStyle(
-                                        color: secondColor,
-                                        fontSize: 20,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      movie.type,
-                                      style: TextStyle(
-                                        color: secondColor,
-                                        fontSize: 20,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                    CardMovieTitleWidget(
+                                        movieTitle: movie.title),
+                                    CardMovieYearWidget(movieYear: movie.year),
+                                    CardMovieTypeWidget(movieType: movie.type),
                                   ],
                                 ),
                               ),
@@ -128,7 +84,7 @@ class MovieCardWidget extends StatelessWidget {
               );
             },
           ),
-        _ => const Text("safdsfdf"),
+        _ => const Text(""),
       },
     );
   }
