@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:movies_app/injector.dart';
 
 import '../../data/model/movie_detail_model.dart';
 import '../../data/repository/movie_repository.dart';
@@ -12,11 +13,11 @@ part 'detail_state.dart';
 
 class DetailBloc extends Bloc<DetailEvent, DetailState> {
   DetailBloc() : super(DetailInitial()) {
-    on<GetMovieDetailEvent>( _GetMovieDetailEvent);
+    on<GetMovieDetailEvent>( _getMovieDetailEvent);
   }
-  final _moviesRepository = MoviesRepository();
+  final _moviesRepository = injector<MoviesRepository>();
 
-  FutureOr<void> _GetMovieDetailEvent(
+  Future <void> _getMovieDetailEvent(
       GetMovieDetailEvent event,
       Emitter<DetailState> emit
       ) async {

@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/colors.dart';
+import 'package:movies_app/injector.dart';
 import 'package:movies_app/presentation/widget/movie_card_widget.dart';
 
 import '../bloc/movies_bloc.dart';
@@ -10,11 +11,10 @@ import '../bloc/movies_bloc.dart';
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoviesBloc()..add(const GetSearchedMoviesEvent()),
+      create: (context) => injector<MoviesBloc>()..add(const GetSearchedMoviesEvent()),
       child: const _Body(),
     );
   }
@@ -33,8 +33,7 @@ class _Body extends StatelessWidget {
               hintText: "Search Movies",
               hintStyle: TextStyle(color: Colors.black54)),
           onChanged: (searchTerm) {
-            context
-                .read<MoviesBloc>()
+            injector<MoviesBloc>()
                 .add(GetSearchedMoviesEvent(searchTerm: searchTerm));
           },
         ),

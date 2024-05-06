@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => MoviesBloc()),
-        BlocProvider(create: (context) => DetailBloc()),
+        BlocProvider(create: (context) => injector<MoviesBloc>()),
+        BlocProvider(create: (context) => injector<DetailBloc>()),
       ],
       child: MaterialApp.router(
         routerDelegate: appRouter.delegate(),

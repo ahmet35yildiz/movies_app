@@ -13,11 +13,11 @@ part 'movies_state.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   MoviesBloc() : super(MoviesInitial()) {
-    on<GetSearchedMoviesEvent>(_GetSearchedMoviesEvent);
+    on<GetSearchedMoviesEvent>(_getSearchedMoviesEvent);
   }
   final _moviesRepository = injector<MoviesRepository>();
 
-  FutureOr<void> _GetSearchedMoviesEvent(
+  Future <void> _getSearchedMoviesEvent(
       GetSearchedMoviesEvent event,
       Emitter<MoviesState> emit
       ) async {

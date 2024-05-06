@@ -6,19 +6,22 @@ import '../model/movie_model.dart';
 import '../model/movie_response_model.dart';
 
 class ApiService {
-  final Dio dio = injector<Dio>();
+  final dio = injector<Dio>();
 
-  List<MovieModel> parseMovies(Map<String, dynamic> response) {
+  Future<List<MovieModel>> parseMovies(Map<String, dynamic> response) async {
     return MoviesResponseModel.fromJson(response).moviesResponse;
   }
 
   Future<List<MovieModel>> loadSearchedMovies({String? searchTerm}) async {
-    var response = await dio.get(
-      "${dotenv.env["ENDPOINT"]}",
-      queryParameters: {"s": searchTerm??"", "apikey": "${dotenv.env["APIKEY"]}"},
-    );
-    print("di çalıştı");
-    return parseMovies(response.data);
+    try {
+      var response = await dio.get(
+        "${dotenv.env["ENDPOINT"]}",
+        queryParameters: {"s": searchTerm, "apikey": "${dotenv.env["APIKEY"]}"},
+      );
+      return parseMovies(response.data);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   MovieDetailModel parseMovieDetail(Map<String, dynamic> response) {
@@ -26,10 +29,14 @@ class ApiService {
   }
 
   Future<MovieDetailModel> loadMovieDetail({String? imdbId}) async {
-    var response = await dio.get(
-      "${dotenv.env["ENDPOINT"]}",
-      queryParameters: {"i": imdbId, "apikey": "${dotenv.env["APIKEY"]}"},
-    );
-    return parseMovieDetail(response.data);
+    try {
+      var response = await dio.get(
+        "${dotenv.env["ENDPOINT"]}",
+        queryParameters: {"i": imdbId, "apikey": "${dotenv.env["APIKEY"]}"},
+      );
+      return parseMovieDetail(response.data);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
