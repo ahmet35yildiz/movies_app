@@ -34,6 +34,8 @@ dependencies:
   flutter_bloc: ^8.1.3
   equatable: ^2.0.5
   auto_route: ^7.8.4
+  get_it: ^7.7.0
+  flutter_dotenv: ^5.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -70,6 +72,7 @@ flutter:
     - assets/animations/search_animation.json
     - assets/images/loading.gif
     - assets/images/movie_poster.jpg
+    - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

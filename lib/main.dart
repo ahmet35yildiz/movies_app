@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:movies_app/injector.dart';
 import 'package:movies_app/presentation/bloc/detail_bloc.dart';
 import 'package:movies_app/presentation/bloc/movies_bloc.dart';
 import 'package:movies_app/router/app_router.dart';
 
-void main() {
+Future main() async {
+  diSetup();
+  await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
 

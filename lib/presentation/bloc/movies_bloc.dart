@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:movies_app/injector.dart';
 
 import '../../data/model/movie_model.dart';
 import '../../data/repository/movie_repository.dart';
@@ -14,7 +15,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   MoviesBloc() : super(MoviesInitial()) {
     on<GetSearchedMoviesEvent>(_GetSearchedMoviesEvent);
   }
-  final _moviesRepository = MoviesRepository();
+  final _moviesRepository = injector<MoviesRepository>();
 
   FutureOr<void> _GetSearchedMoviesEvent(
       GetSearchedMoviesEvent event,
